@@ -31,6 +31,9 @@ EOF
 
 echo -e "\nEnabling essential services"
 
+sudo -u postgres –i initdb -D '/var/lib/postgres/data'
+exit
+
 systemctl enable cups.service
 ntpd -qg
 systemctl enable ntpd.service
@@ -38,20 +41,9 @@ systemctl disable dhcpcd.service
 systemctl stop dhcpcd.service
 systemctl enable NetworkManager.service
 systemctl enable bluetooth
+systemctl enable postgresql
 echo "
 ###############################################################################
 # Cleaning
-###############################################################################
-"
-# Remove no password sudo rights
-sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-# Add sudo rights
-sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-
-# Replace in the same state
-cd $pwd
-echo "
-###############################################################################
-# Done - Please Eject Install Media and Reboot
 ###############################################################################
 "
