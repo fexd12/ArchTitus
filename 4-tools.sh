@@ -37,6 +37,8 @@ wget -O files/burp.sh 'https://portswigger.net/burp/releases/download\?product\=
 chmod +x files/burp.sh
 ./files/burp.sh -q -dir /opt/BurpSuite
 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
 #install gobuster
 go install github.com/OJ/gobuster/v3@latest
 
