@@ -18,9 +18,14 @@ cd ${HOME}/yay
 makepkg -si --noconfirm
 cd ~
 touch "$HOME/.cache/zshhistory"
-git clone "https://github.com/ChrisTitusTech/zsh"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
-ln -s "$HOME/zsh/.zshrc" $HOME/.zshrc
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # install ohmy zsh
+
+git clone "https://github.com/fexd12/zsh"
+git clone "https://github.com/marlonrichert/zsh-autocomplete.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/
+git clone "https://github.com/romkatv/powerlevel10k.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+cp "$HOME/zsh/.zshrc" $HOME/.zshrc
 
 PKGS=(
 'autojump'
