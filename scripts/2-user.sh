@@ -19,9 +19,15 @@ source $HOME/ArchTitus/configs/setup.conf
   cd ~
   mkdir "/home/$USERNAME/.cache"
   touch "/home/$USERNAME/.cache/zshhistory"
-  git clone "https://github.com/ChrisTitusTech/zsh"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+  git clone "https://github.com/fexd12/zsh"
   ln -s "~/zsh/.zshrc" ~/.zshrc
+
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # install ohmy zsh
+
+  git clone "https://github.com/marlonrichert/zsh-autocomplete.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/
+  git clone "https://github.com/romkatv/powerlevel10k.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+cp "$HOME/zsh/.zshrc" $HOME/.zshrc
 
 sed -n '/'$INSTALL_TYPE'/q;p' ~/ArchTitus/pkg-files/${DESKTOP_ENV}.txt | while read line
 do

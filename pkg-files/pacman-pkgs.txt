@@ -44,7 +44,6 @@ fuse3
 fuseiso
 gamemode
 gcc
-gimp
 gparted
 gptfdisk
 grub-customizer
@@ -105,3 +104,4 @@ zip
 zsh
 zsh-syntax-highlighting
 zsh-autosuggestions
+docker

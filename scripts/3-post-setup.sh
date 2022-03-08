@@ -103,6 +103,11 @@ echo "  NetworkManager enabled"
 systemctl enable bluetooth
 echo "  Bluetooth enabled"
 
+sudo -u postgres –i initdb -D '/var/lib/postgres/data'
+exit
+systemctl enable postgresql
+echo "  postgresql enabled"
+
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
 echo -ne "
 -------------------------------------------------------------------------
@@ -139,20 +144,4 @@ fi
 plymouth-set-default-theme -R arch-glow # sets the theme and runs mkinitcpio
 echo 'Plymouth theme installed'
 
-echo -ne "
--------------------------------------------------------------------------
-                    Cleaning
--------------------------------------------------------------------------
-"
-# Remove no password sudo rights
-sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
-# Add sudo rights
-sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
-rm -r $HOME/ArchTitus
-rm -r /home/$USERNAME/ArchTitus
-
-# Replace in the same state
-cd $pwd

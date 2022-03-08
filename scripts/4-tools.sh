@@ -5,31 +5,8 @@ REPOS=(
 "https://github.com/sc0tfree/mentalist.git"
 )
 
-PKGS=(
-'python3'
-'python3-pip'
-'python3-devel'
-'postgresql'
-'go'
-'ruby'
-'hashcat'
-'hydra'
-'smbclient'
-'sqlmap'
-'john'
-'knockd'
-'metasploit'
-'wpscan'
-'radare2'
-'wireshark-qt'
-)
-
 for PKG in "${REPOS[@]}"; do
     git clone $PKG
-done
-
-for PKG in "${PKGS[@]}"; do
-    yay -S --noconfirm $PKG
 done
 
 #install burp
@@ -44,13 +21,24 @@ go install github.com/OJ/gobuster/v3@latest
 
 gem install haiti-hash
 
-# Remove no password sudo rights    
+echo -ne "
+-------------------------------------------------------------------------
+                    Cleaning
+-------------------------------------------------------------------------
+"
+# Remove no password sudo rights
 sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 # Add sudo rights
 sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+
+rm -r $HOME/ArchTitus
+rm -r /home/$USERNAME/ArchTitus
 
 # Replace in the same state
 cd $pwd
+
 echo "
 ###############################################################################
 # Done - Please Eject Install Media and Reboot

@@ -27,6 +27,7 @@ echo -ne "
       ( arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/ArchTitus/scripts/2-user.sh )|& tee 2-user.log
     fi
     ( arch-chroot /mnt $HOME/ArchTitus/scripts/3-post-setup.sh )|& tee 3-post-setup.log
+    ( arch-chroot /mnt $HOME/ArchTitus/scripts/4-tools.sh )|& tee 4-tools.log
     cp -v *.log /mnt/home/$USERNAME
 
 echo -ne "
